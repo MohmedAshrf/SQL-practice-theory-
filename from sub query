@@ -1,0 +1,12 @@
+-- Select fields
+Select local_name,lang_num
+  -- From countries
+  from countries,
+  	-- Subquery (alias as subquery)
+  	(SELECT code, COUNT(*) AS lang_num
+  	 FROM languages
+  	 GROUP BY code) AS lang_num
+  -- Where codes match
+  where countries.code = lang_num.code
+-- Order by descending number of languages
+Order by lang_num desc;
